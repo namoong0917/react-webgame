@@ -12,34 +12,56 @@
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <!--<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>-->
 <!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>-->
+<!-- <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
 <script type="text/babel">
   'use strict';
 
   class LikeButton extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {liked: false};
-    }
+		// constructor(props) {
+    //   super(props);
+    //   this.state = {liked: false}; // 화면에서 달라질 부분을 state로 만들어야 한다.
+    // }
+
+		// constructor를 안쓰는 방법
+		state = {liked: false};
+
+		onCLickButton = () => {
+			// this.state.liked = true; // 아래와 동일
+			this.setState({liked:true});
+		}
+
+
 
     render() {
+			// 눌렀으면 텍스트를 보여주고 안눌렀으면 button 을 보여줘라
+			
       if (this.state.liked) {
-        return 'You liked this.';
+        return 'You liked this.'; // 화면에 나올것들을 return
       }
 
 			// addEventListener('click', ()=> this.setState({liked: true}))
 			// return React.createElement('button',() => this.setState({liked:ture}), 'Like')
       return (
-        <button onClick={() => this.setState({liked: true})}>
-          Like
-        </button>
+				<button onClick={this.onCLickButton}>
+					Like
+				</button>
+				
+				// const array = [];
+				// pop, push, shift, unshift, splice -> 배열을 직접적으로 수정 (react에서 거의 사용 x)
+				// concat, slice -> 새로운 배열을 만들어냄
+
+				// <button onClick={()=>{
+				// 	this.state.liked = true; // 3. 객체를 함부로 바꾸지 말고 복사해라 (불변성)
+				// }}>
+				// </button>
       );
     }
   }
 </script>
 <script type="text/babel">
   // ReactDOM.render(React.createElement(LikeButton), document.querySelector('#root'));
-  // ReactDOM.render(<LikeButton/>, document.querySelector('#root')); // React 17 버전 코드
-	ReactDOM.createRoot(document.querySelector('#root')).render(<LikeButton />); // React 18 버전 코드
+  ReactDOM.render(<LikeButton/>, document.querySelector('#root')); // React 17 버전 코드
+	// ReactDOM.createRoot(document.querySelector('#root')).render(<LikeButton />); // React 18 버전 코드
 </script>
 </body>
 </html>
